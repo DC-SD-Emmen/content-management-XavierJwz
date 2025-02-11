@@ -21,34 +21,48 @@
 
         public function registerUser($username, $password) {
             $this->validateInput($username, $password);
-
+        
+            // Check if username already exists
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->execute();
+            $count = $stmt->fetchColumn();
+        
+            if ($count > 0) {
+                throw new Exception("Username already exists.");
+            }
+        
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        
             $stmt = $this->conn->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
             $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
-
+        
             if ($stmt->execute()) {
                 return "User registered successfully.";
             } else {
                 return "Error registering user.";
             }
         }
-        
 
         public function loginUser($username, $password) {
             $this->validateInput($username, $password);
-
-            $stmt = $this->conn->prepare("SELECT password FROM users WHERE username = :username");
+        
+            $stmt = $this->conn->prepare("SELECT id, username, password FROM users WHERE username = :username");
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
             $stmt->execute();
-
+        
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($result && password_verify($password, $result['password'])) {
-                return "Login successful.";
-            } else {
-                return "Invalid username or password.";
+        
+            if (!$result) {
+                throw new Exception("Invalid username.");
             }
+        
+            if (!password_verify($password, $result['password'])) {
+                throw new Exception("Invalid password.");
+            }
+        
+            return new User($result['username'], $result['id']);
         }
-    }
+}
 ?>

@@ -1,28 +1,36 @@
 <?php
-$host = "mysql"; 
-$dbname = "my-wonderful-website";
-$charset = "utf8";
-$port = "3306";
+    include 'classes/User.php';
 
-spl_autoload_register(function ($class_name) {
-    include 'classes/' . $class_name . '.php';
-});
+    session_start();
 
-$database = new Database();
-$userManager = new user_manager($database);
+    $host = "mysql"; 
+    $dbname = "my-wonderful-website";
+    $charset = "utf8";
+    $port = "3306";
 
-$message = '';
+    spl_autoload_register(function ($class_name) {
+        include 'classes/' . $class_name . '.php';
+    });
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
-    $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
+    $database = new Database();
+    $userManager = new user_manager($database);
 
-    try {
-        $message = $userManager->loginUser($username, $password);
-    } catch (Exception $e) {
-        $message = $e->getMessage();
+    $message = '';
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
+        $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
+
+        try {
+            $user = $userManager->loginUser($username, $password);
+            session_regenerate_id(true);
+            $_SESSION['user'] = $user;
+            header("Location: dashboard.php");
+            exit();
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+        }
     }
-}
 ?>
 
 <html>
@@ -37,18 +45,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h1>PHP Login Page</h1>
-    <form method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <input type="submit" value="Submit">
-    </form>
+
+    <?php if (isset($_SESSION['user'])): ?>
+        <p>Welcome, <?php echo $_SESSION['user']->getUsername(); ?>!</p>
+        <button><a href="logout.php">Logout</a></button>
+    <?php else: ?>
+        <form method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <input type="submit" value="Login">
+        </form>
+
+        <button><a href="index_register.php">Don't have an account yet? Register now!</a></button>
+    <?php endif; ?>
 
     <?php if ($message): ?>
         <p><?php echo $message; ?></p>
     <?php endif; ?>
 
-    <button><a href="index_register.php">Don't have an account yet? Register now!</a></button>
 </body>
 </html>
