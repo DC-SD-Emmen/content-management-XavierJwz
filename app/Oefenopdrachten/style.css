@@ -1,0 +1,27 @@
+* {
+    background-color: #000000;
+}
+
+body * {
+    font-family: "Space Grotesk", sans-serif;
+    color: #ffffff;
+
+}
+
+input {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
