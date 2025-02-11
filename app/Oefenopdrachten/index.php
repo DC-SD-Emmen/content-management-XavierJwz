@@ -44,26 +44,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>PHP Login Page</h1>
+    <div class="container">
+        <h1>PHP Login Page</h1>
 
-    <?php if (isset($_SESSION['user'])): ?>
-        <p>Welcome, <?php echo $_SESSION['user']->getUsername(); ?>!</p>
-        <button><a href="logout.php">Logout</a></button>
-    <?php else: ?>
-        <form method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required><br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br><br>
-            <input type="submit" value="Login">
-        </form>
+        <?php if (isset($_SESSION['user'])): ?>
+            <p>Welcome, <?php echo $_SESSION['user']->getUsername(); ?>!</p>
+            <button><a href="logout.php">Logout</a></button>
+        <?php else: ?>
+            <form method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required><br><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br><br>
+                <input type="submit" value="Login">
+            </form>
 
-        <button><a href="index_register.php">Don't have an account yet? Register now!</a></button>
-    <?php endif; ?>
+            <button><a href="index_register.php">Don't have an account yet? Register now!</a></button>
+        <?php endif; ?>
 
-    <?php if ($message): ?>
-        <p><?php echo $message; ?></p>
-    <?php endif; ?>
+        <?php if ($message): ?>
+            <p><?php echo $message; ?></p>
+        <?php endif; ?>
+    </div>
 
 </body>
 </html>

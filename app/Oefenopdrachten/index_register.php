@@ -48,22 +48,24 @@
     </head>
 
     <body>
-        <h1>PHP Registration Page</h1>
-        <form method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required><br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br><br>
-            <input type="submit" value="Register">
-        </form>
+        <div class="container"> 
+            <h1>PHP Registration Page</h1>
+            <form method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required><br><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br><br>
+                <input type="submit" value="Register">
+            </form>
 
-        <button><a href="index.php">Go Back</a></button>
-        
-        <?php if ($message): ?>
-            <p><?php echo $message; ?></p>
-            <?php if ($success): ?>
-                <script>redirectToLogin();</script>
+            <button><a href="index.php">Already have an account? Login here</a></button>
+            
+            <?php if ($message): ?>
+                <p><?php echo $message; ?></p>
+                <?php if ($success): ?>
+                    <script>redirectToLogin();</script>
+                <?php endif; ?>
             <?php endif; ?>
-        <?php endif; ?>
+        </div>
     </body>
 </html>
