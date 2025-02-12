@@ -24,6 +24,7 @@ button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    width: 325px;
 }
 
 .container {
@@ -32,4 +33,9 @@ button {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    margin-top: -4%;
+}
+
+input[type="submit"] {
+    width: 325px;
 }

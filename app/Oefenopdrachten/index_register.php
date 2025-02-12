@@ -58,7 +58,7 @@
                 <input type="submit" value="Register">
             </form>
 
-            <button><a href="index.php">Already have an account? Login here</a></button>
+            <button><a href="index.php">Already have an account? <br> Login here</a></button>
             
             <?php if ($message): ?>
                 <p><?php echo $message; ?></p>
