@@ -3,7 +3,7 @@
         private $servername = "mysql";
         private $username = "root";
         private $password = "root";
-        private $dbname = "user_login";
+        private $dbname = "content_management";
         private $conn;
 
         public function __construct() {

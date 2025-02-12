@@ -51,9 +51,9 @@
         <div class="container"> 
             <h1>PHP Registration Page</h1>
             <form method="post">
-                <label for="username">Username:</label>
+                <label for="username">Username:<br></label>
                 <input type="text" id="username" name="username" required><br><br>
-                <label for="password">Password:</label>
+                <label for="password">Password:<br></label>
                 <input type="password" id="password" name="password" required><br><br>
                 <input type="submit" value="Register">
             </form>

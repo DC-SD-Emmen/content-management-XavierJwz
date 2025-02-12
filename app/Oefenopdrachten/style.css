@@ -39,3 +39,11 @@ button {
 input[type="submit"] {
     width: 325px;
 }
+
+input[id="username"] {
+    width: 325px;
+}
+
+input[id="password"] {
+    width: 325px;
+}
