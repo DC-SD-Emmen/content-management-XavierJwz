@@ -26,6 +26,6 @@ if (!isset($_SESSION['user'])) {
 <body>
     <h1>Dashboard</h1>
     <p>Welcome to your dashboard, <?php echo $_SESSION['user']->getUsername(); ?>!</p>
-    <button><a href="logout.php">Logout</a></button>
+    <a href="logout.php"><button>Logout</button></a>
 </body>
 </html>

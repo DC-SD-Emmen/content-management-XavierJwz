@@ -59,7 +59,7 @@
                 <input type="submit" value="Login">
             </form>
 
-            <button><a href="index_register.php">Don't have an account yet? <br> Register now!</a></button>
+            <a href="index_register.php"><button>Don't have an account yet? <br> Register now!</button></a>
         <?php endif; ?>
 
         <?php if ($message): ?>
