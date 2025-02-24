@@ -41,7 +41,7 @@
         <script>
             function redirectToLogin() {
                 setTimeout(function() {
-                    window.location.href = 'index.php';
+                    window.location.href = 'login.php';
                 }, 2000);
             }
         </script>
@@ -58,7 +58,7 @@
                 <input type="submit" value="Register">
             </form>
 
-            <a href="index.php"><button>Already have an account? <br> Login here</button></a>
+            <a href="login.php"><button>Already have an account? <br> Login here</button></a>
             
             <?php if ($message): ?>
                 <p><?php echo $message; ?></p>

@@ -8,7 +8,7 @@ spl_autoload_register(function ($class_name) {
 });
 
 if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
+    header("Location: login.php");
     exit();
 }
 ?>
