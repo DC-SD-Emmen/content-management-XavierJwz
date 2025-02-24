@@ -1,9 +1,9 @@
 <?php
-
-$host = "mysql"; // Le host est le nom du service, présent dans le docker-compose.yml
-$dbname = "my-wonderful-website";
-$charset = "utf8";
-$port = "3306";
+   
+    $host = "mysql"; // Le host est le nom du service, présent dans le docker-compose.yml
+    $dbname = "my-wonderful-website";
+    $charset = "utf8";
+    $port = "3306";
 ?>
 
 <?php 
@@ -38,7 +38,7 @@ $port = "3306";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xavier's Game Library</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylegl.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">

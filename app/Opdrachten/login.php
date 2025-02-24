@@ -1,16 +1,10 @@
 <?php
-    include 'classes/User.php';
-
     session_start();
-
-    $host = "mysql"; 
-    $dbname = "my-wonderful-website";
-    $charset = "utf8";
-    $port = "3306";
 
     spl_autoload_register(function ($class_name) {
         include 'classes/' . $class_name . '.php';
     });
+    
 
     $database = new Database();
     $userManager = new user_manager($database);

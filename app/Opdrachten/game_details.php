@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
+}
+
 spl_autoload_register(function ($class_name) {
     include 'classes/' . $class_name . '.php';
 });
@@ -40,18 +46,17 @@ $db = new Database();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($singleGame->get_title()); ?> - Game Details</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylegl.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-item"><a href="index.php">Library</a></div>
+        <div class="nav-item"><a href="dashboard.php">Library</a></div>
         <div class="nav-item active"> 
             <?php if ($firstGameId): ?>
                 <a href="game_details.php?game_id=<?php echo $firstGameId; ?>">Game Details</a>
-                <?php else: ?>
             <?php endif; ?>
         </div> 
-        <div class="nav-item"><button id='add-game'>Add Game</button></div>    
+        <div class="nav-item"><a href="logout.php">Logout</a></div>    
     </nav>
     <div class="library">
          <div class="gameSidebar">
