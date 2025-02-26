@@ -44,6 +44,19 @@
                     window.location.href = 'login.php';
                 }, 2000);
             }
+
+            function togglePasswordVisibility() {
+                var passwordField = document.getElementById("password");
+                var toggleButton = document.getElementById("togglePassword");
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    toggleButton.textContent = "Hide Password";
+                } else {
+                    passwordField.type = "password";
+                    toggleButton.textContent = "Show Password";
+                }
+        }
+    </script>
         </script>
     </head>
 
@@ -55,6 +68,7 @@
                 <input type="text" id="username" name="username" required><br><br>
                 <label for="password">Password:<br></label>
                 <input type="password" id="password" name="password" required><br><br>
+                <button type="button" id="togglePassword" onclick="togglePasswordVisibility()">Show Password</button><br><br>
                 <input type="submit" value="Register">
             </form>
 

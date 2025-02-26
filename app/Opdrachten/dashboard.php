@@ -36,7 +36,8 @@
             <?php if ($firstGameId): ?>
                 <a href="game_details.php?game_id=<?php echo $firstGameId; ?>">Game Details</a>
             <?php endif; ?>
-        </div>   
+        </div>  
+        <div class="nav-item"><a href="user_list.php">My List</a></div>
         <div class="nav-item"><a href="logout.php">Logout</a></div>
     </nav>
 
@@ -58,6 +59,10 @@
                     <a href="game_details.php?game_id=<?php echo $game->getID(); ?>">
                         <img src="uploads/<?php echo htmlspecialchars($game->get_image()); ?>" alt="<?php echo htmlspecialchars($game->get_title()); ?>" class="gameImage">
                     </a>
+                    <form method="post" action="add_to_list.php">
+                        <input type="hidden" name="game_id" value="<?php echo $game->getID(); ?>">
+                        <input type="submit" value="Add to My List">
+                    </form> 
                 </div>
             <?php endforeach; ?>
         </div>
