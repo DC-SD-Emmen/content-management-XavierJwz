@@ -18,8 +18,11 @@
     $db = new Database();
     $gameManager = new GameManager($db);
 
-    $gameManager->addToUserGames($userId, $gameId);
-
-    header("Location: user_list.php");
+    try {
+        $gameManager->addToUserGames($userId, $gameId);
+        header("Location: user_list.php");
+    } catch (Exception $e) {
+        echo "<div>Error: " . $e->getMessage() . "</div>";
+    }
     exit();
 ?>

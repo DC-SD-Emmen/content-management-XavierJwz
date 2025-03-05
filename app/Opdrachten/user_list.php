@@ -37,20 +37,22 @@ $firstGameId = $gameManager->fetch_first_game_id();
         <div class="nav-item"><a href="user_list.php">My List</a></div>
         <div class="nav-item"><a href="logout.php">Logout</a></div>
     </nav>
-    <h1>My Game List</h1>
-    <div class="wishlist">
-        <?php if (empty($userGames)): ?>
-            <p>No games in your list.</p>
-        <?php else: ?>
-            <?php foreach ($userGames as $game): ?>
-                <div>
-                    <a href="game_details.php?game_id=<?php echo $game['id']; ?>">
-                        <img src="uploads/<?php echo htmlspecialchars($game['image']); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>" class="gameImage">
-                    </a>
-                    <p><?php echo htmlspecialchars($game['title']); ?></p>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+    <div class="library">
+        <div class="gameGrid listGrid">
+            <?php if (empty($userGames)): ?>
+                <p>No games in your list.</p>
+            <?php else: ?>
+                <?php foreach ($userGames as $game): ?>
+                    <div>
+                        <a href="game_details.php?game_id=<?php echo $game['id']; ?>">
+                            <img src="uploads/<?php echo htmlspecialchars($game['image']); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>" class="gameImage">
+                        </a>
+                        <p><?php echo htmlspecialchars($game['title']); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+
     </div>
 </body>
 </html>

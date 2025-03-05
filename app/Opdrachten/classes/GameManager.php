@@ -190,12 +190,25 @@ class GameManager {
     }
 
     public function addToUserGames($userId, $gameId) {
-            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM games WHERE id = :id");
+        // Check if the game exists
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM games WHERE id = :id");
         $stmt->bindParam(':id', $gameId);
         $stmt->execute();
         $gameExists = $stmt->fetchColumn();
 
         if ($gameExists) {
+            // Check if the game is already in the user's wishlist
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM user_games WHERE user_id = :user_id AND game_id = :game_id");
+            $stmt->bindParam(':user_id', $userId);
+            $stmt->bindParam(':game_id', $gameId);
+            $stmt->execute();
+            $alreadyInWishlist = $stmt->fetchColumn();
+
+            if ($alreadyInWishlist) {
+                throw new Exception("Game is already in your wishlist.");
+            }
+
+            // Proceed with inserting into user_games
             $stmt = $this->conn->prepare("INSERT INTO user_games (user_id, game_id) VALUES (:user_id, :game_id)");
             $stmt->bindParam(':user_id', $userId);
             $stmt->bindParam(':game_id', $gameId);

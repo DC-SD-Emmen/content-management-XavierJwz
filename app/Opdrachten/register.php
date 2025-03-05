@@ -9,17 +9,18 @@
     });
 
     $database = new Database();
-    $userManager = new user_manager($database);
+    $userManager = new usermanager($database);
 
     $message = '';
     $success = false;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
         $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
-
+    
         try {
-            $message = $userManager->registerUser($username, $password);
+            $message = $userManager->registerUser($username, $password, $email);
             if ($message === "User registered successfully.") {
                 $success = true;
             }
@@ -66,6 +67,8 @@
             <form method="post">
                 <label for="username">Username:<br></label>
                 <input type="text" id="username" name="username" required><br><br>
+                <label for="email">Email:<br></label>
+                <input type="text" id="email" name="email" required><br><br>
                 <label for="password">Password:<br></label>
                 <input type="password" id="password" name="password" required><br><br>
                 <button type="button" id="togglePassword" onclick="togglePasswordVisibility()">Show Password</button><br><br>

@@ -7,7 +7,7 @@
     
 
     $database = new Database();
-    $userManager = new user_manager($database);
+    $userManager = new usermanager($database);
 
     $message = '';
 

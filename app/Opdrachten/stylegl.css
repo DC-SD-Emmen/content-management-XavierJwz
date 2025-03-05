@@ -296,6 +296,20 @@ strong {
     background-color: darkred;
 }
 
+
+.listPage {
+    background-color: #192d3a;
+    color: #ffffff;
+}
+
+.gameList {
+    margin-left: 25px;
+}
+
+.listGrid {
+    width: 100% !important;
+}
+
 @media screen and (max-width: 1300px) {
 
     #game-form {

@@ -44,6 +44,10 @@ input[id="username"] {
     width: 325px;
 }
 
+input[id="email"] {
+    width: 325px;
+}
+
 input[id="password"] {
     width: 325px;
 }
