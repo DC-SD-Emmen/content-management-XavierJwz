@@ -51,6 +51,7 @@
 .library {
     display: flex;
     flex-direction: row;
+    color: #ffffff;
 }
 
 #add-game {
@@ -308,6 +309,14 @@ strong {
 
 .listGrid {
     width: 100% !important;
+}
+
+#addGameButton {
+    all: unset;
+    color: #ffffff;
+    font-size: 16px;
+    border: 1px solid #ffffff;
+    padding: 5px
 }
 
 @media screen and (max-width: 1300px) {

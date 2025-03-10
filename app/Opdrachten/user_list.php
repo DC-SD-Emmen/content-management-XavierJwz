@@ -34,7 +34,7 @@ $firstGameId = $gameManager->fetch_first_game_id();
                 <a href="game_details.php?game_id=<?php echo $firstGameId; ?>">Game Details</a>
             <?php endif; ?>
         </div>  
-        <div class="nav-item"><a href="user_list.php">My List</a></div>
+        <div class="nav-item active"><a href="user_list.php">My List</a></div>
         <div class="nav-item"><a href="logout.php">Logout</a></div>
     </nav>
     <div class="library">

@@ -61,7 +61,7 @@
                     </a>
                     <form method="post" action="add_to_list.php">
                         <input type="hidden" name="game_id" value="<?php echo $game->getID(); ?>">
-                        <input type="submit" value="Add to My List">
+                        <input type="submit" id="addGameButton" value="+ Add Game To List">
                     </form> 
                 </div>
             <?php endforeach; ?>
