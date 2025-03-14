@@ -38,6 +38,7 @@
             <?php endif; ?>
         </div>  
         <div class="nav-item"><a href="user_list.php">My List</a></div>
+        <div class="nav-item"><a href="usermanagement.php">Account</a></div>
         <div class="nav-item"><a href="logout.php">Logout</a></div>
     </nav>
 

@@ -319,6 +319,24 @@ strong {
     padding: 5px
 }
 
+.umbody {
+    margin-left: 25px;
+    margin-top: 10px;
+}
+
+.umbody h2 {
+    margin-bottom: 10px;
+}
+
+.umform {
+    margin-bottom: 10px;
+}
+
+.background {
+    background-color: #192d3a;
+    color: #ffffff;
+}
+
 @media screen and (max-width: 1300px) {
 
     #game-form {
