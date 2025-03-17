@@ -265,16 +265,17 @@ strong {
     color: #ffffff;
 }
 
-.delete-button {
+.deleteButton {
     background-color: red;
     color: white;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     font-size: 16px;
+    margin-top: 20px;
 }
 
-.delete-button:hover {
+.deleteButton:hover {
     background-color: darkred;
 }
 
@@ -282,19 +283,6 @@ strong {
 strong {
     font-weight: 1000;
     color: #ffffff;
-}
-
-.delete-button {
-    background-color: red;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.delete-button:hover {
-    background-color: darkred;
 }
 
 
@@ -311,12 +299,14 @@ strong {
     width: 100% !important;
 }
 
-#addGameButton {
+#GameButton {
     all: unset;
     color: #ffffff;
     font-size: 16px;
     border: 1px solid #ffffff;
-    padding: 5px
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .umbody {

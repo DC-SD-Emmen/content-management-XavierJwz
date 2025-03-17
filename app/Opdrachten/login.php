@@ -1,31 +1,45 @@
 <?php
+    // Start een sessie om gebruikersgegevens op te slaan
     session_start();
 
+    // Autoload-functie om automatisch klassen te laden vanuit de "classes" map
     spl_autoload_register(function ($class_name) {
         include 'classes/' . $class_name . '.php';
     });
-    
 
+    // Maak een nieuwe databaseverbinding en een UserManager-object
     $database = new Database();
     $userManager = new usermanager($database);
 
+    // Variabele voor eventuele foutmeldingen of berichten
     $message = '';
 
+    // Controleer of het formulier is ingediend via een POST-verzoek
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Verkrijg de gebruikersnaam en wachtwoord uit het formulier en ontsmet de invoer
         $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
         $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
 
         try {
+            // Probeer de gebruiker in te loggen
             $user = $userManager->loginUser($username, $password);
+            
+            // Beveilig de sessie door een nieuw sessie-ID te genereren
             session_regenerate_id(true);
+            
+            // Sla de ingelogde gebruiker op in de sessie
             $_SESSION['user'] = $user;
+
+            // Stuur de gebruiker door naar de dashboardpagina
             header("Location: dashboard.php");
             exit();
         } catch (Exception $e) {
+            // Als inloggen mislukt, sla het foutbericht op
             $message = $e->getMessage();
         }
     }
 ?>
+
 
 <html>
 <head>

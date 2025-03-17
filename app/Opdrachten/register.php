@@ -1,34 +1,45 @@
 <?php
+    // Databaseconfiguratie
     $host = "mysql"; 
     $dbname = "my-wonderful-website";
     $charset = "utf8";
     $port = "3306";
 
+    // Automatisch laden van klassen uit de 'classes' map
     spl_autoload_register(function ($class_name) {
         include 'classes/' . $class_name . '.php';
     });
 
+    // Initialisatie van de databaseverbinding en user manager
     $database = new Database();
     $userManager = new usermanager($database);
 
+    // Variabelen voor meldingen en successtatus
     $message = '';
     $success = false;
 
+    // Controleren of het formulier is ingediend
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Veilig ophalen van formuliergegevens
         $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
         $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
         $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
-    
+
         try {
+            // Probeer de gebruiker te registreren
             $message = $userManager->registerUser($username, $password, $email);
+
+            // Controleer of de registratie succesvol was
             if ($message === "User registered successfully.") {
                 $success = true;
             }
         } catch (Exception $e) {
+            // Foutmelding opslaan als de registratie mislukt
             $message = $e->getMessage();
         }
     }
 ?>
+
 
 <html>
     <head>

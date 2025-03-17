@@ -1,21 +1,28 @@
 <?php
+    // Start een sessie om gebruikersgegevens op te slaan
     session_start();
 
+    // Autoload functie om automatisch klassen te laden uit de "classes" map
     spl_autoload_register(function ($class_name) {
         include 'classes/' . $class_name . '.php';
     });
 
+    // Controleer of de gebruiker is ingelogd, zo niet, stuur door naar de loginpagina
     if (!isset($_SESSION['user'])) {
         header("Location: login.php");
         exit();
     }
 
+    // Maak een nieuwe databaseverbinding
     $db = new Database();
 
+    // Maak een nieuwe GameManager instantie voor gamebeheer
     $gameManager = new GameManager($db);
 
+    // Haal alle games op uit de database
     $games = $gameManager->fetch_all_games();
 
+    // Haal de ID van de eerste game op (bijvoorbeeld voor navigatie)
     $firstGameId = $gameManager->fetch_first_game_id();
 ?>
 
@@ -42,6 +49,13 @@
         <div class="nav-item"><a href="logout.php">Logout</a></div>
     </nav>
 
+    <?php if (isset($_SESSION['message'])): ?>
+        <div class="message">
+            <?php echo $_SESSION['message']; ?>
+            <?php unset($_SESSION['message']); ?>
+        </div>
+    <?php endif; ?>
+
     <div class="library">
         <div class="gameSidebar">
             <?php foreach ($games as $game): ?>
@@ -54,21 +68,29 @@
             <?php endforeach; ?>
         </div>
        
-        <div class=gameGrid>
+        <div class="gameGrid">
             <?php foreach ($games as $game): ?>
                 <div>
                     <a href="game_details.php?game_id=<?php echo $game->getID(); ?>">
                         <img src="uploads/<?php echo htmlspecialchars($game->get_image()); ?>" alt="<?php echo htmlspecialchars($game->get_title()); ?>" class="gameImage">
                     </a>
-                    <form method="post" action="add_to_list.php">
+                    <form method="POST" action="add_to_list.php">
                         <input type="hidden" name="game_id" value="<?php echo $game->getID(); ?>">
-                        <input type="submit" id="addGameButton" value="+ Add Game To List">
-                    </form> 
+                        <button type="submit" name="add" id="GameButton">Add to List</button>
+                    </form>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
 
     <script type='text/javascript' src='script.js'></script>
+    <script type="text/javascript">
+        setTimeout(function() {
+            var messageDiv = document.querySelector('.message');
+            if (messageDiv) {
+                messageDiv.style.display = 'none';
+            }
+        }, 2000);
+    </script>
 </body>
 </html>

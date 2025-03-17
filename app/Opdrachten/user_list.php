@@ -1,23 +1,35 @@
 <?php
-include 'classes/User.php';
-session_start();
-spl_autoload_register(function ($class_name) {
-    include 'classes/' . $class_name . '.php';
-});
+    // Inclusie van de User klasse
+    include 'classes/User.php';
 
-if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
-    exit();
-}
+    // Start de sessie om gebruikersinformatie te behouden
+    session_start();
 
-$userId = $_SESSION['user']->getId();
+    // Automatisch laden van klassen uit de 'classes' map
+    spl_autoload_register(function ($class_name) {
+        include 'classes/' . $class_name . '.php';
+    });
 
-$db = new Database();
-$gameManager = new GameManager($db);
+    // Controleer of de gebruiker is ingelogd, anders omleiden naar de loginpagina
+    if (!isset($_SESSION['user'])) {
+        header("Location: login.php");
+        exit();
+    }
 
-$userGames = $gameManager->fetchUserGames($userId);
-$firstGameId = $gameManager->fetch_first_game_id();
+    // Haal de gebruikers-ID op uit de sessie
+    $userId = $_SESSION['user']->getId();
+
+    // Initialisatie van databaseverbinding en game manager
+    $db = new Database();
+    $gameManager = new GameManager($db);
+
+    // Haal de games op die gekoppeld zijn aan de ingelogde gebruiker
+    $userGames = $gameManager->fetchUserGames($userId);
+
+    // Haal het ID op van de eerste game in de database
+    $firstGameId = $gameManager->fetch_first_game_id();
 ?>
+
 
 <html>
 <head>
@@ -49,6 +61,10 @@ $firstGameId = $gameManager->fetch_first_game_id();
                             <img src="uploads/<?php echo htmlspecialchars($game['image']); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>" class="gameImage">
                         </a>
                         <p><?php echo htmlspecialchars($game['title']); ?></p>
+                        <form method="POST" action="add_to_list.php">
+                            <input type="hidden" name="game_id" value="<?php echo $game['id']; ?>">
+                            <button type="submit" name="remove" id="GameButton">Remove from List</button>
+                        </form>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>

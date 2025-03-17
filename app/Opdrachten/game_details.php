@@ -1,45 +1,55 @@
 <?php
-session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
-    exit();
-}
+    // Start een sessie om gebruikersgegevens op te slaan
+    session_start();
 
-spl_autoload_register(function ($class_name) {
-    include 'classes/' . $class_name . '.php';
-});
+    // Controleer of de gebruiker is ingelogd, zo niet, stuur door naar de loginpagina
+    if (!isset($_SESSION['user'])) {
+        header("Location: login.php");
+        exit();
+    }
 
+    // Autoload functie om automatisch klassen te laden vanuit de "classes" map
+    spl_autoload_register(function ($class_name) {
+        include 'classes/' . $class_name . '.php';
+    });
 
-$game_id = isset($_GET['game_id']) ? $_GET['game_id'] : '';
+    // Haal de game-ID op uit de URL, als deze is ingesteld
+    $game_id = isset($_GET['game_id']) ? $_GET['game_id'] : '';
 
-$db = new Database();
+    // Maak een nieuwe databaseverbinding
+    $db = new Database();
 
+    // Maak een nieuwe GameManager instantie voor gamebeheer
     $gameManager = new GameManager($db);
     
+    // Controleer of het formulier is ingediend via een POST-verzoek
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
         try {
+            // Upload het bestand en voeg de gegevens toe aan de database
             $gameManager->fileUpload($_FILES['image']);
             $gameManager->insertData($_POST, $_FILES['image']['name']);
         } catch (Exception $e) {
+            // Toon een foutmelding als er een onverwachte fout optreedt
             echo "<div>Unexpected error during form submission: " . $e->getMessage() . "</div>";
         }
     }
 
+    // Haal gegevens van een enkele game op aan de hand van de game-ID
     $singleGame = $gameManager->fetch_game_by_title($game_id);  
 
-
+    // Haal alle beschikbare games op
     $games = $gameManager->fetch_all_games();
 
-
+    // Controleer of de opgezochte game bestaat
     if (!$singleGame) {
         echo "<div>Game not found.</div>";
         exit;
     }
 
+    // Haal de ID op van de eerste game in de database
     $firstGameId = $gameManager->fetch_first_game_id();
-
 ?>
+
 
 <html>
 <head>
